@@ -67,12 +67,12 @@ $result = mysqli_query($connection, "SELECT * FROM users");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Felhasználók</title>
     <script>
-        function handleChange(id, username, role) {
+        function handleChange(user) {
             document.getElementById("create_form").style.display = "none";
 
-            document.getElementById("id").value = id;
-            document.getElementById("username").value = username;
-            document.getElementById("role").value = role;
+            document.getElementById("id").value = user.id;
+            document.getElementById("username").value = user.username;
+            document.getElementById("role").value = user.role;
 
             document.getElementById("edit_form").style.display = "block";
         }
@@ -139,8 +139,7 @@ $result = mysqli_query($connection, "SELECT * FROM users");
                     <td><?= $row['username'] ?></td>
                     <td><?= $row['password'] ?></td>
                     <td><?= $row['role'] ?></td>
-                    <td><button onclick="handleChange('<?= $row['id'] ?>','<?= $row['username'] ?>', 
-                        '<?= $row['role'] ?>')">Módosítás</button></td>
+                    <td><button onclick='handleChange(<?php echo json_encode($row); ?>)'>Módosítás</button></td>
                     <td>
                         <form action="users.php" method="post">
                             <input type="hidden" name="id" value="<?= $row['id'] ?>">

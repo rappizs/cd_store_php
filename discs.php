@@ -58,16 +58,16 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lemezek</title>
     <script>
-        function handleChange(id, album, artist, style, year, songCount) {
+        function handleChange(disc) {
             document.getElementById("create_form").style.display = "none";
 
-            document.getElementById("artist").value = artist;
-            document.getElementById("album").value = album;
-            document.getElementById("artist").value = artist;
-            document.getElementById("style").value = style;
-            document.getElementById("year").value = year;
-            document.getElementById("song_count").value = songCount;
-            document.getElementById("id").value = id;
+            document.getElementById("artist").value = disc.artist;
+            document.getElementById("album").value = disc.album;
+            document.getElementById("artist").value = disc.artist;
+            document.getElementById("style").value = disc.style;
+            document.getElementById("year").value = disc.year;
+            document.getElementById("song_count").value = disc.song_count;
+            document.getElementById("id").value = disc.id;
 
             document.getElementById("edit_form").style.display = "block";
         }
@@ -127,9 +127,7 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
                     <td><?= $row['style'] ?></td>
                     <td><?= $row['year'] ?></td>
                     <td><?= $row['song_count'] ?></td>
-                    <td><button onclick="handleChange('<?= $row['id'] ?>','<?= $row['album'] ?>', 
-                    '<?= $row['artist'] ?>', '<?= $row['style'] ?>', 
-                    '<?= $row['year'] ?>', '<?= $row['song_count'] ?>')">Módosítás</button></td>
+                    <td><button onclick='handleChange(<?php echo json_encode($row); ?>)'>Módosítás</button></td>
                     <td>
                         <form action="discs.php" method="post">
                             <input type="hidden" name="id" value="<?= $row['id'] ?>">
