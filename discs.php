@@ -89,7 +89,6 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
         <?php if ($_SESSION['role'] === "admin") : ?>
             <a href="discs.php">Lemezeim</a>
             <a href="users.php">Felhasználók</a>
-            <a href="all_discs.php">Összes lemez</a>
         <?php endif; ?>
         <a href="logout.php">Kijelentkezés</a>
     </nav>
