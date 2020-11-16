@@ -94,13 +94,13 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
     </nav>
     <h3 style="color: red;">
         <?php
-        if ($_GET['update_failed'] == true) {
+        if (isset($_GET['update_failed'])) {
             echo "Nem sikerült a módosítás!";
         }
-        if ($_GET['delete_failed'] == true) {
+        if (isset($_GET['delete_failed'])) {
             echo "Nem sikerült a törlés!";
         }
-        if ($_GET['insert_failed'] == true) {
+        if (isset($_GET['insert_failed'])) {
             echo "Nem sikerült a létrehozás!";
         }
         ?>

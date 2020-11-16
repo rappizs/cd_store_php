@@ -23,10 +23,10 @@
     <h2>Bejelentkezés</h2>
     <h3 id="error" style="color: red;">
         <?php
-        if ($_GET['nomatch'] == true) {
+        if (isset($_GET['nomatch'])) {
             echo "Hibás felhasználónév vagy jelszó! ";
         }
-        if ($_GET['connectfail'] == true) {
+        if (isset($_GET['connectfail'])) {
             echo "Nem sikerült csatlakozni az adatbázishoz!";
         }
         ?>

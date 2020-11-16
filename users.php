@@ -110,13 +110,13 @@ $result = mysqli_query($connection, "SELECT * FROM users");
     </nav>
     <h3 id="error" style="color: red;">
         <?php
-        if ($_GET['update_failed'] == true) {
+        if (isset($_GET['update_failed'])) {
             echo "Nem sikerült a módosítás!";
         }
-        if ($_GET['delete_failed'] == true) {
+        if (isset($_GET['delete_failed'])) {
             echo "Nem sikerült a törlés!";
         }
-        if ($_GET['insert_failed'] == true) {
+        if (isset($_GET['insert_failed'])) {
             echo "Nem sikerült a létrehozás!";
         }
         ?>
