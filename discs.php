@@ -71,6 +71,7 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
             document.getElementById("id").value = disc.id;
 
             document.getElementById("edit_form").style.display = "block";
+            window.scrollTo(0,document.body.scrollHeight);
         }
 
         function hideForm() {
@@ -81,6 +82,7 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
         function handleNewDisc() {
             document.getElementById("edit_form").style.display = "none";
             document.getElementById("create_form").style.display = "block";
+            window.scrollTo(0,document.body.scrollHeight);
         }
     </script>
 </head>
@@ -150,7 +152,7 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
             </tbody>
         </table>
         <input class="btn btn-info" type="button" onclick="handleNewDisc()" value="&#10010 Új lemez">
-        <div class="pt-3 col-sm-12 col-md-6 col-lg-4" id="edit_form" style="display: none;">
+        <div class="pt-3 pb-3 col-sm-12 col-md-6 col-lg-4" id="edit_form" style="display: none;">
             <h3>Módosítás</h3>
             <form action="discs.php" method="post">
                 <input type="hidden" name="id" id="id">
@@ -178,7 +180,7 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
                 <button type="button" class="btn btn-secondary" onclick="hideForm()">Mégse</button>
             </form>
         </div>
-        <div class="pt-3 col-sm-12 col-md-6 col-lg-4" id="create_form" style="display: none;">
+        <div class="pt-3 pb-3 col-sm-12 col-md-6 col-lg-4" id="create_form" style="display: none;">
             <h3>Új lemez létrehozása</h3>
             <form action="discs.php" method="post">
                 <div class="form-group">

@@ -65,6 +65,7 @@ $result = mysqli_query($connection, "SELECT * FROM users");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <title>Felhasználók</title>
     <script>
         function handleChange(user) {
@@ -75,6 +76,7 @@ $result = mysqli_query($connection, "SELECT * FROM users");
             document.getElementById("role").value = user.role;
 
             document.getElementById("edit_form").style.display = "block";
+            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function hideForm() {
@@ -85,6 +87,7 @@ $result = mysqli_query($connection, "SELECT * FROM users");
         function handleNewUser() {
             document.getElementById("edit_form").style.display = "none";
             document.getElementById("create_form").style.display = "block";
+            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function passwordCheck() {
@@ -100,85 +103,120 @@ $result = mysqli_query($connection, "SELECT * FROM users");
     </script>
 </head>
 
-<body>
-    <nav>
-        <?php if ($_SESSION['role'] === "admin") : ?>
-            <a href="discs.php">Lemezeim</a>
-            <a href="users.php">Felhasználók</a>
-        <?php endif; ?>
-        <a href="logout.php">Kijelentkezés</a>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <ul class="navbar-nav mr-auto">
+            <?php if ($_SESSION['role'] === "admin") : ?>
+                <li class="nav-item">
+                    <a href="discs.php" class="nav-link">Lemezeim</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="users.php" class="nav-link">Felhasználók</a>
+                </li>
+            <?php endif; ?>
+            <li class="nav-item">
+                <a href="logout.php" class="nav-link">Kijelentkezés</a>
+            </li>
+        </ul>
     </nav>
-    <h3 id="error" style="color: red;">
-        <?php
-        if (isset($_GET['update_failed'])) {
-            echo "Nem sikerült a módosítás!";
-        }
-        if (isset($_GET['delete_failed'])) {
-            echo "Nem sikerült a törlés!";
-        }
-        if (isset($_GET['insert_failed'])) {
-            echo "Nem sikerült a létrehozás!";
-        }
-        ?>
-    </h3>
-    <h3>Felhasználók</h3>
-    <table>
-        <thead>
-            <tr>
-                <td>Felhasználónév</td>
-                <td>Jelszó</td>
-                <td>Szerepkör</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container-fluid">
+        <h5 id="error" style="color: red;">
             <?php
-            while ($row = mysqli_fetch_assoc($result)) { ?>
+            if (isset($_GET['update_failed'])) {
+                echo "Nem sikerült a módosítás!";
+            }
+            if (isset($_GET['delete_failed'])) {
+                echo "Nem sikerült a törlés!";
+            }
+            if (isset($_GET['insert_failed'])) {
+                echo "Nem sikerült a létrehozás!";
+            }
+            ?>
+        </h5>
+        <h1>Felhasználók</h1>
+        <table class="table col-12">
+            <thead class="thead-dark">
                 <tr>
-                    <!-- '?=' == php echo -->
-                    <td><?= $row['username'] ?></td>
-                    <td><?= $row['password'] ?></td>
-                    <td><?= $row['role'] ?></td>
-                    <td><button onclick='handleChange(<?php echo json_encode($row); ?>)'>Módosítás</button></td>
-                    <td>
-                        <form action="users.php" method="post">
-                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                            <input type="submit" value="Törlés" name="delete">
-                        </form>
-                    </td>
+                    <th scope="col">Felhasználónév</th>
+                    <th scope="col">Jelszó</th>
+                    <th scope="col">Szerepkör</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-    <input type="button" onclick="handleNewUser()" value="&#10010 Új felhasználó">
-    <div id="edit_form" style="display: none;">
-        <h3>Módosítás</h3>
-        <form action="users.php" method="post" onsubmit="return passwordCheck()">
-            <input type="hidden" name="id" id="id">
-            Felhasználónév: <input type="text" id="username" name="username" required> <br>
-            Szerepkör: <select name="role" id="role">
-                <option value="user">Felhasználó</option>
-                <option value="admin">Adminisztrátor</option>
-            </select> <br>
-            Jelszó: <input type="password" id="password" name="password"> <br>
-            Jelszó mégegyszer: <input type="password" id="password_again"> <br>
-            <input type="submit" value="Mentés" name="save">
-        </form>
-        <button onclick="hideForm()">Mégse</button>
-    </div>
-    <div id="create_form" style="display: none;">
-        <h3>Új felhasználó létrehozása</h3>
-        <form action="users.php" method="post" onsubmit="return passwordCheck()">
-            Felhasználónév: <input type="text" name="username" required> <br>
-            Szerepkör: <select name="role">
-                <option value="user">Felhasználó</option>
-                <option value="admin">Adminisztrátor</option>
-            </select> <br>
-            Jelszó: <input type="password" id="password" name="password" required> <br>
-            Jelszó mégegyszer: <input type="password" id="password_again" required> <br>
-            <input type="submit" value="Létrehozás" name="create">
-        </form>
-        <button onclick="hideForm()">Mégse</button>
+            </thead>
+            <tbody>
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) { ?>
+                    <tr>
+                        <!-- '?=' == php echo -->
+                        <td><?= $row['username'] ?></td>
+                        <td><?= $row['password'] ?></td>
+                        <td><?= $row['role'] ?></td>
+                        <td><button class="btn btn-secondary" onclick='handleChange(<?php echo json_encode($row); ?>)'>Módosítás</button></td>
+                        <td>
+                            <form action="users.php" method="post">
+                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                <input type="submit" value="Törlés" name="delete" class="btn btn-danger">
+                            </form>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        <input class="btn btn-info" type="button" onclick="handleNewUser()" value="&#10010 Új felhasználó">
+        <div class="pt-3 pb-3 col-sm-12 col-md-6 col-lg-4" id="edit_form" style="display: none;">
+            <h3>Módosítás</h3>
+            <form action="users.php" method="post" onsubmit="return passwordCheck()">
+                <input type="hidden" name="id" id="id">
+                <div class="form-group">
+                    <label for="">Felhasználónév:</label>
+                    <input class="form-control" type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Szerepkör:</label>
+                    <select class="form-control" name="role" id="role">
+                        <option value="user">Felhasználó</option>
+                        <option value="admin">Adminisztrátor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Jelszó: </label>
+                    <input class="form-control" type="password" id="password" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="">Jelszó mégegyszer: </label>
+                    <input class="form-control" type="password" id="password_again">
+                </div>
+                <input class="btn btn-info" type="submit" value="Mentés" name="save">
+                <button type="button" class="btn btn-secondary" onclick="hideForm()">Mégse</button>
+            </form>
+        </div>
+        <div class="pt-3 pb-3 col-sm-12 col-md-6 col-lg-4" id="create_form" style="display: none;">
+            <h3>Új felhasználó létrehozása</h3>
+            <form action="users.php" method="post" onsubmit="return passwordCheck()">
+                <div class="form-group">
+                    <label for="">Felhasználónév:</label>
+                    <input class="form-control" type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Szerepkör:</label>
+                    <select class="form-control" name="role">
+                        <option value="user">Felhasználó</option>
+                        <option value="admin">Adminisztrátor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Jelszó: </label>
+                    <input class="form-control" type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Jelszó mégegyszer: </label>
+                    <input class="form-control" type="password" id="password_again" required>
+                </div>
+                <input class="btn btn-info" type="submit" value="Létrehozás" name="create">
+                <button type="button" class="btn btn-secondary" onclick="hideForm()">Mégse</button>
+            </form>
+        </div>
     </div>
 </body>
 
