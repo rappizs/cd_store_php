@@ -23,7 +23,7 @@
 <body class="bg-light">
     <div class="container-fluid">
         <div class="d-flex justify-content-center">
-            <div class="p-5">
+            <div class="p-5 col-sm-12 col-md-6 col-lg-4">
                 <h2>Bejelentkezés</h2>
                 <h5 id="error" style="color: red;">
                     <?php
