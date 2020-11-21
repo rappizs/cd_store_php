@@ -56,6 +56,7 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <title>Lemezek</title>
     <script>
         function handleChange(disc) {
@@ -84,85 +85,126 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
     </script>
 </head>
 
-<body>
-    <nav>
-        <?php if ($_SESSION['role'] === "admin") : ?>
-            <a href="discs.php">Lemezeim</a>
-            <a href="users.php">Felhasználók</a>
-        <?php endif; ?>
-        <a href="logout.php">Kijelentkezés</a>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <ul class="navbar-nav mr-auto">
+            <?php if ($_SESSION['role'] === "admin") : ?>
+                <li class="nav-item active">
+                    <a href="discs.php" class="nav-link">Lemezeim</a>
+                </li>
+                <li class="nav-item">
+                    <a href="users.php" class="nav-link">Felhasználók</a>
+                </li>
+            <?php endif; ?>
+            <li class="nav-item">
+                <a href="logout.php" class="nav-link">Kijelentkezés</a>
+            </li>
+        </ul>
     </nav>
-    <h3 style="color: red;">
-        <?php
-        if (isset($_GET['update_failed'])) {
-            echo "Nem sikerült a módosítás!";
-        }
-        if (isset($_GET['delete_failed'])) {
-            echo "Nem sikerült a törlés!";
-        }
-        if (isset($_GET['insert_failed'])) {
-            echo "Nem sikerült a létrehozás!";
-        }
-        ?>
-    </h3>
-    <h3>Lemezek</h3>
-    <table>
-        <thead>
-            <tr>
-                <td>Album</td>
-                <td>Előadó</td>
-                <td>Stílus</td>
-                <td>Évszám</td>
-                <td>Zeneszámok</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container-fluid">
+        <h5 style="color: red;">
             <?php
-            while ($row = mysqli_fetch_assoc($result)) { ?>
+            if (isset($_GET['update_failed'])) {
+                echo "Nem sikerült a módosítás!";
+            }
+            if (isset($_GET['delete_failed'])) {
+                echo "Nem sikerült a törlés!";
+            }
+            if (isset($_GET['insert_failed'])) {
+                echo "Nem sikerült a létrehozás!";
+            }
+            ?>
+        </h5>
+        <h1>Lemezek</h1>
+        <table class="table col-12">
+            <thead class="thead-dark">
                 <tr>
-                    <!-- '?=' == php echo -->
-                    <td><?= $row['album'] ?></td>
-                    <td><?= $row['artist'] ?></td>
-                    <td><?= $row['style'] ?></td>
-                    <td><?= $row['year'] ?></td>
-                    <td><?= $row['song_count'] ?></td>
-                    <td><button onclick='handleChange(<?php echo json_encode($row); ?>)'>Módosítás</button></td>
-                    <td>
-                        <form action="discs.php" method="post">
-                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                            <input type="submit" value="Törlés" name="delete">
-                        </form>
-                    </td>
+                    <th scope="col">Album</th>
+                    <th scope="col">Előadó</th>
+                    <th scope="col">Stílus</th>
+                    <th scope="col">Évszám</th>
+                    <th scope="col">Zeneszámok</th>
+                    <th></th>
+                    <th></th>
                 </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-    <input type="button" onclick="handleNewDisc()" value="&#10010 Új lemez">
-    <div id="edit_form" style="display: none;">
-        <h3>Módosítás</h3>
-        <form action="discs.php" method="post">
-            <input type="hidden" name="id" id="id">
-            Album: <input type="text" id="album" name="album" required> <br>
-            Előadó: <input type="text" id="artist" name="artist" required> <br>
-            Stílus: <input type="text" id="style" name="style" required> <br>
-            Év: <input type="number" id="year" name="year" required> <br>
-            Zeneszám: <input type="number" id="song_count" name="song_count" required> <br>
-            <input type="submit" value="Mentés" name="save">
-        </form>
-        <button onclick="hideForm()">Mégse</button>
-    </div>
-    <div id="create_form" style="display: none;">
-        <h3>Új lemez létrehozása</h3>
-        <form action="discs.php" method="post">
-            Album: <input type="text" name="album" required> <br>
-            Előadó: <input type="text" name="artist" required> <br>
-            Stílus: <input type="text" name="style" required> <br>
-            Év: <input type="number" name="year" required> <br>
-            Zeneszám: <input type="number" name="song_count" required> <br>
-            <input type="submit" value="Létrehozás" name="create">
-        </form>
-        <button onclick="hideForm()">Mégse</button>
+            </thead>
+            <tbody>
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) { ?>
+                    <tr>
+                        <!-- '?=' == php echo -->
+                        <td><?= $row['album'] ?></td>
+                        <td><?= $row['artist'] ?></td>
+                        <td><?= $row['style'] ?></td>
+                        <td><?= $row['year'] ?></td>
+                        <td><?= $row['song_count'] ?></td>
+                        <td><button class="btn btn-secondary" onclick='handleChange(<?php echo json_encode($row); ?>)'>Módosítás</button></td>
+                        <td>
+                            <form action="discs.php" method="post">
+                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                <input type="submit" value="Törlés" name="delete" class="btn btn-danger">
+                            </form>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        <input class="btn btn-info" type="button" onclick="handleNewDisc()" value="&#10010 Új lemez">
+        <div class="pt-3 col-sm-12 col-md-6 col-lg-4" id="edit_form" style="display: none;">
+            <h3>Módosítás</h3>
+            <form action="discs.php" method="post">
+                <input type="hidden" name="id" id="id">
+                <div class="form-group">
+                    <label for="">Album: </label>
+                    <input type="text" class="form-control" id="album" name="album" required>
+                </div>
+                <div class="form-group">
+                    <label for=""> Előadó:</label>
+                    <input type="text" class="form-control" id="artist" name="artist" required>
+                </div>
+                <div class="form-group">
+                    <label for=""> Stílus: </label>
+                    <input type="text" class="form-control" id="style" name="style" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Év: </label>
+                    <input type="number" class="form-control" id="year" name="year" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Zeneszám: </label>
+                    <input type="number" class="form-control" id="song_count" name="song_count" required>
+                </div>
+                <input class="btn btn-info" type="submit" value="Mentés" name="save">
+                <button type="button" class="btn btn-secondary" onclick="hideForm()">Mégse</button>
+            </form>
+        </div>
+        <div class="pt-3 col-sm-12 col-md-6 col-lg-4" id="create_form" style="display: none;">
+            <h3>Új lemez létrehozása</h3>
+            <form action="discs.php" method="post">
+                <div class="form-group">
+                    <label for="">Album: </label>
+                    <input class="form-control" type="text" name="album" required>
+                </div>
+                <div class="form-group">
+                    <label for=""> Előadó:</label>
+                    <input class="form-control" type="text" name="artist" required>
+                </div>
+                <div class="form-group">
+                    <label for=""> Stílus: </label>
+                    <input class="form-control" type="text" name="style" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Év: </label>
+                    <input class="form-control" type="number" name="year" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Zeneszám: </label>
+                    <input class="form-control" type="number" name="song_count" required>
+                </div>
+                <input class="btn btn-info" type="submit" value="Létrehozás" name="create">
+                <button class="btn btn-secondary" type="button" onclick="hideForm()">Mégse</button>
+            </form>
+        </div>
     </div>
 </body>
 
