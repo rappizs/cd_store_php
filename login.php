@@ -1,3 +1,8 @@
+<?php
+session_start();
+if ($_SESSION['logged_in'] === true)
+    header("location: discs.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 

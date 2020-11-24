@@ -157,23 +157,23 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
             <form action="discs.php" method="post">
                 <input type="hidden" name="id" id="id">
                 <div class="form-group">
-                    <label for="">Album: </label>
+                    <label>Album: </label>
                     <input type="text" class="form-control" id="album" name="album" required>
                 </div>
                 <div class="form-group">
-                    <label for=""> Előadó:</label>
+                    <label> Előadó:</label>
                     <input type="text" class="form-control" id="artist" name="artist" required>
                 </div>
                 <div class="form-group">
-                    <label for=""> Stílus: </label>
+                    <label> Stílus: </label>
                     <input type="text" class="form-control" id="style" name="style" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Év: </label>
+                    <label>Év: </label>
                     <input type="number" class="form-control" id="year" name="year" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Zeneszám: </label>
+                    <label>Zeneszám: </label>
                     <input type="number" class="form-control" id="song_count" name="song_count" required>
                 </div>
                 <input class="btn btn-info" type="submit" value="Mentés" name="save">
@@ -184,23 +184,23 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
             <h3>Új lemez létrehozása</h3>
             <form action="discs.php" method="post">
                 <div class="form-group">
-                    <label for="">Album: </label>
+                    <label>Album: </label>
                     <input class="form-control" type="text" name="album" required>
                 </div>
                 <div class="form-group">
-                    <label for=""> Előadó:</label>
+                    <label> Előadó:</label>
                     <input class="form-control" type="text" name="artist" required>
                 </div>
                 <div class="form-group">
-                    <label for=""> Stílus: </label>
+                    <label> Stílus: </label>
                     <input class="form-control" type="text" name="style" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Év: </label>
+                    <label>Év: </label>
                     <input class="form-control" type="number" name="year" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Zeneszám: </label>
+                    <label>Zeneszám: </label>
                     <input class="form-control" type="number" name="song_count" required>
                 </div>
                 <input class="btn btn-info" type="submit" value="Létrehozás" name="create">

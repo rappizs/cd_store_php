@@ -169,22 +169,22 @@ $result = mysqli_query($connection, "SELECT * FROM users");
             <form action="users.php" method="post" onsubmit="return passwordCheck()">
                 <input type="hidden" name="id" id="id">
                 <div class="form-group">
-                    <label for="">Felhasználónév:</label>
+                    <label>Felhasználónév:</label>
                     <input class="form-control" type="text" id="username" name="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Szerepkör:</label>
+                    <label>Szerepkör:</label>
                     <select class="form-control" name="role" id="role">
                         <option value="user">Felhasználó</option>
                         <option value="admin">Adminisztrátor</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="">Jelszó: </label>
+                    <label>Jelszó: </label>
                     <input class="form-control" type="password" id="password" name="password">
                 </div>
                 <div class="form-group">
-                    <label for="">Jelszó mégegyszer: </label>
+                    <label>Jelszó mégegyszer: </label>
                     <input class="form-control" type="password" id="password_again">
                 </div>
                 <input class="btn btn-info" type="submit" value="Mentés" name="save">
@@ -195,22 +195,22 @@ $result = mysqli_query($connection, "SELECT * FROM users");
             <h3>Új felhasználó létrehozása</h3>
             <form action="users.php" method="post" onsubmit="return passwordCheck()">
                 <div class="form-group">
-                    <label for="">Felhasználónév:</label>
+                    <label>Felhasználónév:</label>
                     <input class="form-control" type="text" name="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Szerepkör:</label>
+                    <label>Szerepkör:</label>
                     <select class="form-control" name="role">
                         <option value="user">Felhasználó</option>
                         <option value="admin">Adminisztrátor</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="">Jelszó: </label>
+                    <label>Jelszó: </label>
                     <input class="form-control" type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <label for="">Jelszó mégegyszer: </label>
+                    <label>Jelszó mégegyszer: </label>
                     <input class="form-control" type="password" id="password_again" required>
                 </div>
                 <input class="btn btn-info" type="submit" value="Létrehozás" name="create">
