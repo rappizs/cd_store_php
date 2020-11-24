@@ -10,6 +10,7 @@ if ($_SESSION['logged_in'] === true)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Regisztráció</title>
     <script>
         function formCheck() {
@@ -71,37 +72,28 @@ if ($_SESSION['logged_in'] === true)
 </head>
 
 <body class="bg-light">
-    <div class="container-fluid">
-        <div class="d-flex justify-content-center">
-            <div class="p-5 col-sm-12 col-md-6 col-lg-4">
-                <h2>Regisztráció</h2>
-                <h5 id="error" style="color: red;">
-                    <?php
-                    if (isset($_GET['failed'])) {
-                        echo "Nem sikerült a regisztráció, lehet van már ilyen nevű felhasználó!";
-                    }
-                    ?>
-                </h5>
-                <form action="check.php" method="post" onsubmit="return formCheck()">
-                    <div class="form-group">
-                        <label for="name">
-                            Felhasználónév:
-                        </label>
-                        <input id="name" name="name" type="text" class="form-control" onchange="nameCheck()" onkeyup="nameCheck()">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Jelszó: </label>
-                        <input id="password" name="password" type="password" class="form-control" onchange="pwdCheck()" onkeyup="pwdCheck()">
-                    </div>
-                    <div class="form-group">
-                        <label for="password_again">Jelszó mégegyszer:</label>
-                        <input id="password_again" type="password" class="form-control" onchange="pwdCheckAgain()" onkeyup="pwdCheckAgain()">
-                    </div>
-                    <input type="submit" class="btn btn-info" value="Regisztráció" name="register">
-                    <a href="login.php" class="btn btn-primary">Bejelentkezés</a>
-                </form>
+    <div class="login">
+        <h1>Regisztráció</h1>
+        <h5 id="error" style="color: red;">
+            <?php
+            if (isset($_GET['failed'])) {
+                echo "Nem sikerült a regisztráció, lehet van már ilyen nevű felhasználó!";
+            }
+            ?>
+        </h5>
+        <form action="check.php" method="post" onsubmit="return formCheck()">
+            <div class="form-group">
+                <input id="name" name="name" type="text" class="form-control" placeholder="Felhasználónév" onchange="nameCheck()" onkeyup="nameCheck()">
             </div>
-        </div>
+            <div class="form-group">
+                <input id="password" name="password" type="password" class="form-control" placeholder="Jelszó" onchange="pwdCheck()" onkeyup="pwdCheck()">
+            </div>
+            <div class="form-group">
+                <input id="password_again" type="password" class="form-control" placeholder="Jelszó mégegyszer" onchange="pwdCheckAgain()" onkeyup="pwdCheckAgain()">
+            </div>
+            <button type="submit" class="btn btn-primary" value="Regisztráció" name="register">Regisztráció</button>
+            <a href="login.php" class="btn btn-primary">Bejelentkezés</a>
+        </form>
     </div>
 </body>
 
