@@ -71,7 +71,7 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
             document.getElementById("id").value = disc.id;
 
             document.getElementById("edit_form").style.display = "block";
-            window.scrollTo(0,document.body.scrollHeight);
+            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function hideForm() {
@@ -82,7 +82,7 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
         function handleNewDisc() {
             document.getElementById("edit_form").style.display = "none";
             document.getElementById("create_form").style.display = "block";
-            window.scrollTo(0,document.body.scrollHeight);
+            window.scrollTo(0, document.body.scrollHeight);
         }
     </script>
 </head>
@@ -102,6 +102,9 @@ $result = mysqli_query($connection, "SELECT * FROM discs WHERE user_id='$userId'
                 <a href="logout.php" class="nav-link">Kijelentkezés</a>
             </li>
         </ul>
+        <h5 class="text-light">
+            Bejelentkezve: <?= $_SESSION['username'] ?>
+        </h5>
     </nav>
     <div class="container-fluid">
         <h5 style="color: red;">

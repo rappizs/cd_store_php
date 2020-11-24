@@ -118,6 +118,9 @@ $result = mysqli_query($connection, "SELECT * FROM users");
                 <a href="logout.php" class="nav-link">Kijelentkezés</a>
             </li>
         </ul>
+        <h5 class="text-light">
+            Bejelentkezve: <?= $_SESSION['username'] ?>
+        </h5>
     </nav>
     <div class="container-fluid">
         <h5 id="error" style="color: red;">
